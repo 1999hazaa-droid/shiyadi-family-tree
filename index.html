@@ -40,6 +40,9 @@ h2{font-size:1.1rem;font-weight:600;margin:0 0 .15rem;color:var(--brown)}
 .br .k{background:var(--brown)}.br .g{background:var(--green)}
 .leg{display:flex;gap:1rem;font-size:.82rem;color:var(--mut);margin-top:.8rem}
 .leg s{display:inline-block;width:.7rem;height:.7rem;border-radius:3px;margin-inline-end:.3rem;text-decoration:none}
+.gs{position:sticky;top:0;z-index:20;margin:-.2rem -.4rem 0;padding:.6rem .4rem;background:rgba(241,232,216,.94);backdrop-filter:blur(6px)}
+.gs input{width:100%;box-sizing:border-box;padding:.8rem 1rem;border:1.5px solid var(--gold);border-radius:14px;background:#fff;color:var(--ink);font:inherit;font-size:1rem;box-shadow:0 2px 10px rgba(139,90,43,.12)}
+.gs small{display:block;color:var(--mut);font-size:.8rem;margin:.3rem .3rem 0;min-height:1.1em}
 .tools{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:.75rem}
 .tools input,.tools select{padding:.55rem .8rem;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font:inherit}
 .tools input{flex:1 1 12rem}
@@ -67,6 +70,7 @@ details.son>summary .cnt{margin-inline-start:auto;background:#f4ead7;color:var(-
 .root small{font-weight:400;opacity:.9;margin-inline-start:auto}
 details{color:var(--mut);font-size:.85rem}summary{cursor:pointer;color:var(--ink)}
 </style></head><body><div class="wrap">
+<div class="gs"><input type="search" id="gq" placeholder="🔍 ابحث عن أي اسم في الشجرة…" aria-label="بحث في كل الشجرة"><small id="gc"></small></div>
 <header class="hero">
 <figure><img class="mom" src="photos/p10.jpg" alt="أم العائلة" onerror="this.hidden=true"><figcaption>أم العائلة<b>آمنة بنت مطير بن فريش الشيادية</b></figcaption></figure>
 <div class="t"><h1>شجرة عائلة زايد بن سويد بن خميس الشيادي</h1><p>إعداد الشجرة: إسماعيل بن طالب بن زايد الشيادي</p></div>
@@ -147,4 +151,8 @@ $('tree').innerHTML=SONS.map(s=>{
  }
  return `<details class="son"${t?' open':''}><summary>${s} بن زايد<span class="cnt">${total?f(total):'—'}</span></summary><div class="body">${body}</div></details>`}).join('')||'<p class="note">لا توجد نتائج</p>'}
 $('q').oninput=tree;tree();
+$('gq').oninput=()=>{const t=$('gq').value.trim();$('q').value=t;$('q2').value=t;$('sel').value='';tree();draw();
+ if(!t){$('gc').textContent='';return}
+ const a=Z.filter(r=>r.name.includes(t)).length,b=O.filter(r=>r.name.includes(t)).length;
+ $('gc').textContent=(a+b)?`${f(a+b)} نتيجة · ${f(a)} في فرع زايد · ${f(b)} في الفروع الأخرى`:'لا توجد نتائج'};
 </script></body></html>

@@ -158,13 +158,14 @@ const Z=D.filter(r=>r.branch==='فرع زايد');
 const SONS=['خميس','عبدالله','مريم','طالب','موزة','صالح','سيف','سليمة (بريوه)','بطي','محمد','خليلة'];
 $('zcount').textContent=SONS.length+' من الأبناء · '+f(Z.length)+' اسماً';
 const chips=(a,c)=>`<div class="chips">${a.map(n=>`<span class="chip ${c||''}">${n}</span>`).join('')}</div>`;
+const FEM=new Set('آمنة،آيات،أبرار،أريام،أسماء،أصيلة،أفنان،ألاء،ابتسام،الحسناء،البلجاء،الحوراء،الزهراء،بدرية،بشائر،بلقيس،تقى،تيجان،جنات،جنان،حورية،خالصة،خديجة،دعاء،دلال،رحمة،رزان،رقية،ريم،ريما،زلفى،زمزم،زهرة،زيانة،سارة،سامية،سعاد،سمية،سهام،شذاء،شمائل،شهرزاد،شهلاء،شيخة،طاهرة،طيبة،عزة،علياء،غزلان،فاطمة،فتحية،فخرية،فداء،فدوى،كريمة،ليان،ليلى،ماجدة،محفوظة،مريم،معصومة،موزة،مونا،مياء،نادية،نصرة،هاجر،هدى،ورد،يقين،سليمة (بريوه)،خليلة'.split('،'));const sg=(a,k=x=>x)=>[...a].sort((x,y)=>FEM.has(k(x))-FEM.has(k(y)));
 const PH={'خليلة':0,'خميس':1,'مريم':2,'موزة':3,'سيف':4,'بطي':5,'محمد':6,'عبدالله':7,'طالب':8,'صالح':9};
 const av=n=>n in PH?`<img class="av" src="photos/p${PH[n]}.jpg" alt="" onerror="this.hidden=true">`:n.startsWith('سليمة')?'<span class="av ph2">س</span>':'';
 function tree(){const t=$('q').value.trim();const hit=n=>!t||n.includes(t);
-$('tree').innerHTML=SONS.map(s=>{
+$('tree').innerHTML=sg(SONS).map(s=>{
  const rows=Z.filter(r=>r.sub===s),reds=rows.filter(isKid),total=rows.length;
- const kidsOf=p=>rows.filter(x=>!isKid(x)&&x.parent===p).map(x=>x.name);
- const show=reds.filter(r=>hit(r.name)||kidsOf(r.name).some(hit)||hit(s));
+ const kidsOf=p=>sg(rows.filter(x=>!isKid(x)&&x.parent===p).map(x=>x.name));
+ const show=sg(reds.filter(r=>hit(r.name)||kidsOf(r.name).some(hit)||hit(s)),r=>r.name);
  if(!show.length&&!hit(s))return '';
  let body='';
  if(!reds.length)body='<p class="note" style="margin:.4rem 0 0">لم تُقرأ أسماء لذريته في الرسم</p>';

@@ -127,9 +127,6 @@ details.son>summary::before{order:5;margin-inline-start:.2rem}
 <figure><img src="photos/p9.jpg" alt="صالح" onerror="this.hidden=true"><figcaption>صالح</figcaption></figure>
 <figure><div class="ph">سليمة</div></figure>
 </div></section>
-<section class="card"><h2>حجم كل فرع</h2><p class="note">عدد الأسماء المقروءة في كل فرع، مقسومة بين الأبناء والأحفاد</p>
-<div class="bars" id="bars"></div>
-<div class="leg"><span><s style="background:#8b5a2b"></s>أبناء وبنات</span><span><s style="background:#2f6b4f"></s>أحفاد وحفيدات</span></div></section>
 <section class="card"><h2>تسلسل الجذع</h2><p class="note">كما يظهر أسفل الرسم، من الجد الأعلى إلى زايد</p>
 <div class="chain"><span>معوز</span><i>←</i><span>خلف</span><i>←</i><span>ناصر</span><i>←</i><span>سعيد</span><i>←</i><span>خميس</span><i>←</i><span>سويد</span><i>←</i><span class="last">زايد</span></div></section>
 <section class="card"><h2>نسب القبيلة</h2><p class="nasab">تنسب القبيلة إلى معولة بن شمس بن عمرو بن غانم بن عثمان بن نصر بن زهران بن كعب بن الحارث بن عبدالله بن مالك بن زيد بن كهلان بن سبأ بن قحطان بن يشجب بن يعرب بن قحطان بن هود عليه السلام.</p></section>
@@ -150,7 +147,6 @@ $('k_kids').textContent=f(D.filter(isKid).length);
 $('k_grand').textContent=f(D.filter(r=>!isKid(r)).length);
 const m=new Map();D.forEach(r=>{const o=m.get(r.branch)||{b:r.branch,n:0,k:0,g:0};o.n++;isKid(r)?o.k++:o.g++;m.set(r.branch,o)});
 const B=[...m.values()].sort((a,b)=>b.n-a.n),mx=B[0].n;
-$('bars').innerHTML=B.map(o=>`<div class="br"><span class="n">${o.b}</span><span class="v">${f(o.n)}</span><div class="trk"><div class="tr" style="width:${o.n/mx*100}%"><i class="k" style="width:${o.k/o.n*100}%"></i><i class="g" style="width:${o.g/o.n*100}%"></i></div></div></div>`).join('');
 const O=D.filter(r=>r.branch!=='فرع زايد');
 $('sel').innerHTML='<option value="">كل الفروع</option>'+B.filter(o=>o.b!=='فرع زايد').map(o=>`<option>${o.b}</option>`).join('');
 const OB=[...new Set(O.map(r=>r.branch))];

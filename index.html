@@ -99,7 +99,6 @@ details.son>summary::before{order:5;margin-inline-start:.2rem}
 .lsb{width:100%;box-sizing:border-box;margin:.2rem 0 .7rem;padding:.65rem .9rem;border:1px solid var(--gold);border-radius:12px;background:#fff;color:var(--ink);font:inherit}
 .lsb[hidden]{display:none}
 </style></head><body><div class="wrap">
-<div class="gs"><input type="search" id="gq" placeholder="🔍 ابحث عن أي اسم في الشجرة…" aria-label="بحث في كل الشجرة"><small id="gc"></small></div>
 <header class="hero">
 <figure><img class="mom" src="photos/p10.jpg" alt="أم العائلة" onerror="this.hidden=true"><figcaption>أم العائلة<b>آمنة بنت مطير بن فريش الشيادية</b></figcaption></figure>
 <div class="t"><h1>شجرة عائلة زايد بن سويد بن خميس الشيادي</h1><p>إعداد الشجرة: إسماعيل بن طالب بن زايد الشيادي</p></div>
@@ -177,10 +176,5 @@ $('oa').onclick=()=>document.querySelectorAll('details.son').forEach(d=>d.open=t
 $('ca').onclick=()=>document.querySelectorAll('details.son').forEach(d=>d.open=false);
 $('top').onclick=()=>window.scrollTo({top:0});
 addEventListener('scroll',()=>$('top').classList.toggle('on',scrollY>600),{passive:true});
-$('gq').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('gq').blur();const t=$('gq').value.trim();const hasZ=t&&Z.some(r=>r.name.includes(t));const el=$(hasZ||!t?'treeSec':'othSec');el.scrollIntoView()}};
 [['si1','lq','q',()=>tree()],['si2','lq2','q2',()=>draw()]].forEach(([b,i,h,fn])=>{const bt=$(b),inp=$(i);bt.onclick=()=>{inp.hidden=!inp.hidden;if(!inp.hidden)inp.focus();else{inp.value='';$(h).value='';fn()}};inp.oninput=()=>{$(h).value=inp.value.trim();fn()}});
-$('gq').oninput=()=>{const t=$('gq').value.trim();$('q').value=t;$('q2').value=t;$('sel').value='';tree();draw();
- if(!t){$('gc').textContent='';return}
- const a=Z.filter(r=>r.name.includes(t)).length,b=O.filter(r=>r.name.includes(t)).length;
- $('gc').textContent=(a+b)?`${f(a+b)} نتيجة · ${f(a)} في فرع زايد · ${f(b)} في الفروع الأخرى`:'لا توجد نتائج'};
 </script></body></html>

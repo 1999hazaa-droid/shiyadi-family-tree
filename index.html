@@ -90,6 +90,9 @@ details{color:var(--mut);font-size:.85rem}summary{cursor:pointer;color:var(--ink
 .root{background:#f4ead7;color:var(--brown);border:1px solid var(--line)}
 .root small{color:var(--mut)}
 .gal figure{margin:0;width:4.4rem;display:flex;flex-direction:column;align-items:center;gap:.3rem}.gal figcaption{font-size:.78rem;color:var(--ink);text-align:center;line-height:1.2}
+.av{width:2.6rem;height:2.6rem;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 1px 5px rgba(90,58,24,.3);flex:none;background:var(--line)}
+.av.ph2{display:flex;align-items:center;justify-content:center;background:var(--green);color:#fff;font-size:1rem;font-weight:600}
+details.son>summary::before{order:5;margin-inline-start:.2rem}
 </style></head><body><div class="wrap">
 <div class="gs"><input type="search" id="gq" placeholder="🔍 ابحث عن أي اسم في الشجرة…" aria-label="بحث في كل الشجرة"><small id="gc"></small></div>
 <header class="hero">
@@ -164,6 +167,8 @@ const Z=D.filter(r=>r.branch==='فرع زايد');
 const SONS=['خميس','عبدالله','مريم','طالب','موزة','صالح','سيف','سليمة (بريوه)','بطي','محمد','خليلة'];
 $('zcount').textContent=SONS.length+' من الأبناء · '+f(Z.length)+' اسماً';
 const chips=(a,c)=>`<div class="chips">${a.map(n=>`<span class="chip ${c||''}">${n}</span>`).join('')}</div>`;
+const PH={'خليلة':0,'خميس':1,'مريم':2,'موزة':3,'سيف':4,'بطي':5,'محمد':6,'عبدالله':7,'طالب':8,'صالح':9};
+const av=n=>n in PH?`<img class="av" src="photos/p${PH[n]}.jpg" alt="" onerror="this.hidden=true">`:n.startsWith('سليمة')?'<span class="av ph2">س</span>':'';
 function tree(){const t=$('q').value.trim();const hit=n=>!t||n.includes(t);
 $('tree').innerHTML=SONS.map(s=>{
  const rows=Z.filter(r=>r.sub===s),reds=rows.filter(isKid),total=rows.length;
@@ -177,7 +182,7 @@ $('tree').innerHTML=SONS.map(s=>{
   body+=show.filter(r=>kidsOf(r.name).length).map(r=>{const k=kidsOf(r.name);const kk=hit(r.name)||hit(s)?k:k.filter(hit);
    return `<div class="nest"><div class="nt">أبناء ${r.name} بن ${s} (${f(k.length)})</div>${chips(kk,'g')}</div>`}).join('');
  }
- return `<details class="son"${t?' open':''}><summary>${s} بن زايد<span class="cnt">${total?f(total):'—'}</span></summary><div class="body">${body}</div></details>`}).join('')||'<p class="note">لا توجد نتائج</p>'}
+ return `<details class="son"${t?' open':''}><summary>${av(s)}${s} بن زايد<span class="cnt">${total?f(total):'—'}</span></summary><div class="body">${body}</div></details>`}).join('')||'<p class="note">لا توجد نتائج</p>'}
 $('q').oninput=tree;tree();
 $('oa').onclick=()=>document.querySelectorAll('details.son').forEach(d=>d.open=true);
 $('ca').onclick=()=>document.querySelectorAll('details.son').forEach(d=>d.open=false);

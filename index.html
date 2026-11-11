@@ -73,6 +73,22 @@ details.son>summary .cnt{margin-inline-start:auto;background:#f4ead7;color:var(-
 .root{display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem;padding:.7rem 1rem;background:linear-gradient(135deg,#8b5a2b,#b5844a);color:#fff;border-radius:14px;font-weight:600}
 .root small{font-weight:400;opacity:.9;margin-inline-start:auto}
 details{color:var(--mut);font-size:.85rem}summary{cursor:pointer;color:var(--ink)}
+/* simple */
+.hero{background:var(--card);color:var(--ink);box-shadow:none;border:1px solid var(--line);padding:1rem;gap:.7rem;border-radius:16px}
+.hero .mom{width:4.6rem;height:4.6rem;border:3px solid var(--line)}
+.hero figcaption{color:var(--mut);font-size:.8rem;margin-top:.4rem}
+.hero figcaption b{color:var(--ink);font-size:.95rem}
+.hero .t{border-top:1px solid var(--line);padding-top:.7rem}
+.hero h1{font-size:clamp(1.15rem,4.8vw,1.6rem);color:var(--brown);font-weight:600}
+.hero p{color:var(--mut);font-size:.85rem;margin-top:.3rem}
+.kpis{grid-template-columns:repeat(4,1fr);gap:.4rem;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:.7rem .3rem}
+.kpi{background:none!important;border:0!important;box-shadow:none!important;padding:0 .2rem!important}
+.kpi::before{display:none}
+.kpi b{font-size:1.35rem;font-weight:600;color:var(--brown)}
+.kpi span{font-size:.7rem;display:block;line-height:1.3}
+.card{box-shadow:none;padding:1rem}
+.root{background:#f4ead7;color:var(--brown);border:1px solid var(--line)}
+.root small{color:var(--mut)}
 </style></head><body><div class="wrap">
 <div class="gs"><input type="search" id="gq" placeholder="🔍 ابحث عن أي اسم في الشجرة…" aria-label="بحث في كل الشجرة"><small id="gc"></small></div>
 <header class="hero">

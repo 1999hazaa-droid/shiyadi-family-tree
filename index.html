@@ -106,9 +106,9 @@ details{color:var(--mut);font-size:.85rem}summary{cursor:pointer;color:var(--ink
 <div class="root"><span>زايد بن سويد</span><small id="zcount"></small></div>
 <div id="tree"></div></section>
 <section class="card" id="othSec"><h2>الفروع الأخرى من الشجرة</h2><p class="note">أسماء الفروع الأخرى مجمّعة حسب الفرع</p>
-<div class="tools"><input type="hidden" id="q2"><select id="sel" aria-label="الفرع"></select></div>
-<div class="box"><table><thead><tr><th>الاسم</th><th>الصلة</th><th class="hide-n">الفرع الفرعي</th><th class="hide-n">الفرع</th></tr></thead><tbody id="rows"></tbody></table></div>
-<p class="note" style="margin:.6rem 0 0" id="cnt"></p></section>
+<div class="tools"><input type="hidden" id="q2"><select id="sel" hidden></select></div>
+<div class="root"><span>الفروع الأخرى</span><small id="ocount"></small></div>
+<div id="oth"></div></section>
 <section class="card"><h2>وجوه من العائلة</h2><p class="note">أبناء زايد بن سويد الشيادي</p>
 <div class="gal">
 <img src="photos/p0.jpg" alt="" onerror="this.hidden=true">
@@ -149,10 +149,15 @@ const B=[...m.values()].sort((a,b)=>b.n-a.n),mx=B[0].n;
 $('bars').innerHTML=B.map(o=>`<div class="br"><span class="n">${o.b}</span><span class="v">${f(o.n)}</span><div class="trk"><div class="tr" style="width:${o.n/mx*100}%"><i class="k" style="width:${o.k/o.n*100}%"></i><i class="g" style="width:${o.g/o.n*100}%"></i></div></div></div>`).join('');
 const O=D.filter(r=>r.branch!=='فرع زايد');
 $('sel').innerHTML='<option value="">كل الفروع</option>'+B.filter(o=>o.b!=='فرع زايد').map(o=>`<option>${o.b}</option>`).join('');
-function draw(){const t=$('q2').value.trim(),b=$('sel').value;const v=O.filter(r=>(!b||r.branch===b)&&(!t||r.name.includes(t)||r.sub.includes(t)));
-$('rows').replaceChildren(...v.map(r=>{const tr=document.createElement('tr');[[r.name,''],[r.gen,'m'],[r.sub,'m hide-n'],[r.branch,'m hide-n']].forEach(([x,c])=>{const td=document.createElement('td');td.textContent=x;if(c)td.className=c;tr.append(td)});return tr}));
-$('cnt').textContent=v.length?f(v.length)+' اسم معروض':'لا توجد نتائج'}
-$('q2').oninput=draw;$('sel').onchange=draw;draw();
+const OB=[...new Set(O.map(r=>r.branch))];
+$('ocount').textContent=OB.length+' فروع · '+f(O.length)+' اسماً';
+function draw(){const t=$('q2').value.trim();const hit=n=>!t||n.includes(t);
+$('oth').innerHTML=OB.map(b=>{const rows=O.filter(r=>r.branch===b);const subs=[...new Set(rows.map(r=>r.sub))];
+ const bh=hit(b);const parts=subs.map(sb=>{const nm=rows.filter(r=>r.sub===sb).map(r=>r.name);const sh=bh||hit(sb);const sh2=sh?nm:nm.filter(hit);return {sb,all:nm,show:sh2}}).filter(p=>p.show.length);
+ if(!parts.length)return '';
+ const body=subs.length===1?`<div class="grp"><div class="chips">${parts[0].show.map(n=>`<span class="chip g">${n}</span>`).join('')}</div></div>`:parts.map(p=>`<div class="nest"><div class="nt">${p.sb} (${f(p.all.length)})</div><div class="chips">${p.show.map(n=>`<span class="chip g">${n}</span>`).join('')}</div></div>`).join('');
+ return `<details class="son"${t?' open':''}><summary>${b}<span class="cnt">${f(rows.length)}</span></summary><div class="body">${body}</div></details>`}).join('')||'<p class="note">لا توجد نتائج</p>'}
+$('q2').oninput=draw;draw();
 const Z=D.filter(r=>r.branch==='فرع زايد');
 const SONS=['خميس','عبدالله','مريم','طالب','موزة','صالح','سيف','سليمة (بريوه)','بطي','محمد','خليلة'];
 $('zcount').textContent=SONS.length+' من الأبناء · '+f(Z.length)+' اسماً';
